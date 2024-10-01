@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-function Form() {
+function Form({ onSubmit }) {
   const [rating, setRating] = useState(null);
   const [checkboxes, setCheckboxes] = useState({});
-  const [textField, setTextField] = useState("");
+  const [review, setReview] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -122,10 +122,10 @@ function Form() {
 
   const eventOnCheckbox = (field, value) => {
     console.log("set the field:", field, " to value ", value);
-    setCheckboxes((prevCheckboxes => ({
-        ...prevCheckboxes,
-        [field]: value,
-    })))
+    setCheckboxes((prevCheckboxes) => ({
+      ...prevCheckboxes,
+      [field]: value,
+    }));
   };
 
   function handleTextFieldInput(event, field) {
@@ -134,10 +134,34 @@ function Form() {
     console.log("Set name to: " + inputValue);
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const formData = {
+      rating,
+      checkboxes,
+      review,
+      fullName,
+      email,
+    };
+
+    // submit the answer to answerslist in survey
+    onSubmit(formData);
+
+    // reset the data
+    setRating(null);
+    setCheckboxes({});
+    setReview("");
+    setFullName("");
+    setEmail("");
+  };
+
+
+
   // Form return
   return (
     <>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h2>Tell us what you think about your rubber duck!</h2>
         <div className="form__group radio">
           <h3>How do you rate your rubber duck colour?</h3>
@@ -155,7 +179,7 @@ function Form() {
             name="review"
             cols="30"
             rows="10"
-            onChange={(event) => handleTextFieldInput(event, setTextField)}
+            onChange={(event) => handleTextFieldInput(event, setReview)}
           ></textarea>
         </label>
 
