@@ -15,16 +15,16 @@ function ItemsList({ list }) {
   );
 }
 
-export default function AnswersItem({
-  answerItem: { username, colour, timeSpent, review },
-}) {
+export default function AnswersItem({ answerItem, onEdit }) {
+  const { username, rating, timeSpent, review } = answerItem;
+
   return (
     <li>
       <article className="answer">
         <h3>{username || "Anon"} said:</h3>
         <p>
           <em>How do you rate your rubber duck colour?</em>
-          <span className="answer__line">{colour}</span>
+          <span className="answer__line">{rating}</span>
         </p>
         <p>
           <em>How do you like to spend time with your rubber duck?</em>
@@ -34,6 +34,7 @@ export default function AnswersItem({
           <em>What else have you got to say about your rubber duck?</em>
           <span className="answer__line">{review}</span>
         </p>
+        <button onClick={() => onEdit(answerItem)}>Edit</button>
       </article>
     </li>
   );

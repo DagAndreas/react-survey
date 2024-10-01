@@ -1,12 +1,14 @@
 import AnswersItem from "./AnswersItem";
 
-export default function AnswersList({ answers }) {
-  console.log("Inside AnswersList: ", answers);
-
+export default function AnswersList({ answers, onEdit }) {
   return (
     <ul>
-      {answers.map((answerItem, i) => (
-        <AnswersItem answerItem={answerItem} key={i} />
+      {answers.map((answerItem) => (
+        <AnswersItem
+          key={answerItem.id}
+          answerItem={answerItem}
+          onEdit={onEdit}
+        />
       ))}
     </ul>
   );
