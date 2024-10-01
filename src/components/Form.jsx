@@ -137,9 +137,12 @@ function Form({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const timeSpent = Object.keys(checkboxes).filter((key) => checkboxes[key]);
+
+
     const formData = {
       rating,
-      checkboxes,
+      timeSpent,
       review,
       fullName,
       email,
